@@ -2,7 +2,37 @@
     <string name="app_name">carwash</string>
     <string name="txt_nama_konsumen">Nama Konsumen</string>
     <string name="txt_tipe_jasa">Tipe Jasa</string>
-    <string name="txt_no_pol">No Pol</string>
+    <string name="txt_no_pol">Nomor Polisi</string>
     <string name="txt_nama_mobil">Nama Mobil</string>
     <string name="txt_total_biaya">Total Biaya</string>
+    <string name="btn_submit">Submit</string>
+
+    <string-array name="tipe_jasa_array">
+        <item>Cuci Mobil Manual</item>
+        <item>Cuci Mobil Waterless</item>
+        <item>Cuci Mobil Touchless</item>
+        <item>Cuci Mobil Robotic</item>
+        <item>Cuci Mobil Hidrolik</item>
+    </string-array>
+
+    <string name="nama_submit">nama : %1$s</string>
+    <string name="jasa_submit">Jasa : %1$s</string>
+    <string name="mobil_submit">Mobil : %1$s</string>
+    <string name="biaya_submit">Biaya : %1$s</string>
+    <string name="kembalian_submit">Kembalian : %1$s</string>
+    <string name="txt_bayar">Bayar</string>
+
+    <string name="bayar_invalid">Bayar Invalid</string>
+    <string name="nama_invalid">Nama Invalid</string>
+    <string name="jasa_invalid">Jasa Invalid</string>
+    <string name="mobil_invalid">Mobil Invalid</string>
+    <string name="biaya_invalid">Biaya Invalid</string>
+    <string name="bayar_kurang">Bayar Kurang</string>
+    <string name="reset_berhasil">Reset Berhasil</string>
+    <string name="submit_berhasil">Submit Berhasil</string>
+    <string name="nopol_invalid">Nomor Polisi Invalid</string>
+
+
+
+
 </resources>
