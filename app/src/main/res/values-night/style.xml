@@ -9,6 +9,6 @@
         <item name="android:paddingRight">20dp</item>
         <item name="android:paddingTop">5dp</item>
         <item name="android:paddingBottom">5dp</item>
-        <item name="android:popupBackground">@color/white</item>
+        <item name="android:popupBackground">#FF000000</item>
     </style>
 </resources>

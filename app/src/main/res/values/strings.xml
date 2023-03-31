@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">carwash</string>
+    <string name="app_name">CarWash</string>
     <string name="txt_nama_konsumen">Nama Konsumen</string>
     <string name="txt_tipe_jasa">Tipe Jasa</string>
     <string name="txt_no_pol">Nomor Polisi</string>
@@ -32,8 +32,4 @@
     <string name="submit_berhasil">Submit Berhasil</string>
     <string name="nopol_invalid">Nomor Polisi Invalid</string>
     <string name="btn_reset">Reset</string>
-
-
-
-
 </resources>
