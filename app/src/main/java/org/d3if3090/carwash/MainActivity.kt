@@ -8,10 +8,17 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import org.d3if3090.carwash.databinding.ActivityMainBinding
+import org.d3if3090.carwash.model.DataTipeJasa
+import org.d3if3090.carwash.model.HasilCarwash
+import org.d3if3090.carwash.ui.main.MainViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProvider(this)[MainViewModel::class.java]
+    }
 
     private var biaya: Int = 0
 
@@ -43,7 +50,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         spinner.selected {  }
+        viewModel.getHasilCarwas().observe(this){
+            showResult(it)
+        }
     }
+
 
     fun Spinner.selected(action: (position:Int) -> Unit) {
         this.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -53,35 +64,17 @@ class MainActivity : AppCompatActivity() {
                 val tipe_jasa = parent?.getItemAtPosition(position).toString()
                 jasa = tipe_jasa
                 val totalBiaya: String
-                when(tipe_jasa){
-                    "Cuci Mobil Manual" -> {
-                        biaya = 30000
-                        totalBiaya = "30.000"
-                    }
-                    "Cuci Mobil Waterless" -> {
-                        biaya = 50000
-                        totalBiaya = "50.000"
-                    }
-                    "Cuci Mobil Touchless" -> {
-                        biaya = 50000
-                        totalBiaya = "50.000"
-                    }
-                    "Cuci Mobil Robotic" -> {
-                        biaya = 80000
-                        totalBiaya = "80.000"
-                    }
-                    "Cuci Mobil Hidrolik" -> {
-                        biaya = 30000
-                        totalBiaya = "30.000"
-                    }
-                    else -> {
-                        biaya = 0
-                        totalBiaya = ""
-                    }
-                }
-                binding.totalBiayaInp.setText(totalBiaya)
+
+                val getTipeJasa = viewModel.getTipeJasa(tipe_jasa)
+                biaya = getTipeJasa.biaya
+                totalBiaya = getTipeJasa.totalBiaya
+                showTotalBiaya(totalBiaya)
             }
         }
+    }
+
+    private fun showTotalBiaya(totalBiaya: String){
+        binding.totalBiayaInp.setText(totalBiaya)
     }
 
     fun submit(){
@@ -90,13 +83,11 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.nama_invalid, Toast.LENGTH_LONG).show()
             return
         }
-        binding.txtNamaSubmit.text = getString(R.string.nama_submit, namaKonsumen)
 
         if (TextUtils.isEmpty(jasa)) {
             Toast.makeText(this, R.string.jasa_invalid, Toast.LENGTH_LONG).show()
             return
         }
-        binding.txtJasaSubmit.text = getString(R.string.jasa_submit, jasa)
 
         val noPol = binding.noPolInp.text.toString()
         if (TextUtils.isEmpty(noPol)) {
@@ -123,24 +114,30 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.mobil_invalid, Toast.LENGTH_LONG).show()
             return
         }
-        binding.txtMobilSubmit.text = getString(R.string.mobil_submit, namaMobil)
-
         val biayaInpText = binding.totalBiayaInp.text.toString()
         if (TextUtils.isEmpty(biayaInpText)) {
             Toast.makeText(this, R.string.biaya_invalid, Toast.LENGTH_LONG).show()
             return
         }
-        binding.txtBiayaSubmit.text = getString(R.string.biaya_submit, biayaInpText)
-
         if(bayarInp - biaya < 0){
             Toast.makeText(this, R.string.bayar_kurang, Toast.LENGTH_LONG).show()
             return
         }
-        binding.txtKembalianSubmit.text = getString(R.string.kembalian_submit,(bayarInp - biaya).toString())
-        tampilkanSubmit()
-
+        viewModel.getCarwash(namaKonsumen, namaMobil, jasa, bayarInp)
         Toast.makeText(this, R.string.submit_berhasil, Toast.LENGTH_LONG).show()
     }
+
+    private fun showResult(result: HasilCarwash?){
+        if (result == null) return
+        binding.txtNamaSubmit.text = getString(R.string.nama_submit, result.nama)
+        binding.txtJasaSubmit.text = getString(R.string.jasa_submit, result.jasa)
+        binding.txtMobilSubmit.text = getString(R.string.mobil_submit, result.mobil)
+        binding.txtBiayaSubmit.text = getString(R.string.biaya_submit, result.biaya)
+        binding.txtKembalianSubmit.text = getString(R.string.kembalian_submit, result.kembalian.toString())
+
+        tampilkanSubmit()
+    }
+
 
     fun tampilkanSubmit(){
         binding.txtNamaSubmit.setVisibility(View.VISIBLE)
