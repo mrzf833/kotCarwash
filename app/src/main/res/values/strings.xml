@@ -6,6 +6,7 @@
     <string name="txt_nama_mobil">Nama Mobil</string>
     <string name="txt_total_biaya">Total Biaya</string>
     <string name="btn_submit">Submit</string>
+    <string name="tentang_aplikasi">Tentang Aplikasi</string>
 
     <string-array name="tipe_jasa_array">
         <item>Cuci Mobil Manual</item>
@@ -32,4 +33,5 @@
     <string name="submit_berhasil">Submit Berhasil</string>
     <string name="nopol_invalid">Nomor Polisi Invalid</string>
     <string name="btn_reset">Reset</string>
+    <string name="about">Carwash adalah aplikasi pencatatan jasa pencucian kendaraan mobil.\nAplikasi Carwash ini pemilik serta karyawan mendapatkan kemudahan dalam mengolah data perusahaan dengan baik, benar, efektif dan efesien dalam melakukan pendataan dan tracking data.</string>
 </resources>
