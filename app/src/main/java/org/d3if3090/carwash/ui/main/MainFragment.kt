@@ -9,14 +9,10 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import org.d3if3090.carwash.R
 import org.d3if3090.carwash.databinding.FragmentMainBinding
 import org.d3if3090.carwash.db.CarwashDb
-import org.d3if3090.carwash.model.DataTipeJasa
 import org.d3if3090.carwash.model.HasilCarwash
 
 class MainFragment: Fragment() {
@@ -28,6 +24,8 @@ class MainFragment: Fragment() {
     }
 
     private var biaya: Int = 0
+
+    private var idHistory: Long = 0
 
     private  var jasa: String = ""
 
@@ -44,13 +42,13 @@ class MainFragment: Fragment() {
         }
 
         binding.btnDetail.setOnClickListener {
-            viewModel.mulaiNavigasiToDetail()
+            viewModel.mulaiNavigasiToDetail(idHistory)
         }
 
         viewModel.getNavigasiToDetail().observe(viewLifecycleOwner){
             if(it == null) return@observe
             findNavController().navigate(MainFragmentDirections
-                .actionMainFragmentToHistoryFragment(it))
+                .actionMainFragmentToDetailFragment(it))
             viewModel.selesaiNavigasiToDetail()
         }
     }
@@ -159,6 +157,10 @@ class MainFragment: Fragment() {
         }
         viewModel.setCarwash(namaKonsumen, namaMobil,noPol, jasa, bayarInp)
         Toast.makeText(this.context, R.string.submit_berhasil, Toast.LENGTH_LONG).show()
+
+        viewModel.dataLastHistory.observe(viewLifecycleOwner){
+            idHistory = it.id
+        }
     }
 
     private fun showResult(result: HasilCarwash?){

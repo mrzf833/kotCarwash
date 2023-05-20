@@ -4,16 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import org.d3if3090.carwash.R
 import org.d3if3090.carwash.databinding.FragmentDetailHistoryBinding
 import org.d3if3090.carwash.db.CarwashDb
-import org.d3if3090.carwash.db.HistoryEntity
+import org.d3if3090.carwash.db.hasilCarwash
 import org.d3if3090.carwash.model.HasilCarwash
 
 class DetailFragment: Fragment() {
-    private  val viewModel: DetailViewModel by lazy {
+    private val args: DetailFragmentArgs by navArgs()
+    private val viewModel: DetailViewModel by lazy {
         val db = CarwashDb.getInstance(requireContext())
         val factory = DetailViewModelFactory(db.historyDao)
         ViewModelProvider(this, factory)[DetailViewModel::class.java]
@@ -32,14 +35,14 @@ class DetailFragment: Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.setCarwash(id)
-        viewModel.getHasilCarwas().observe(requireActivity()){
-            showDetail(it)
+        viewModel.getDataById(args.idHistory).observe(viewLifecycleOwner){
+            showDetail(it.hasilCarwash())
         }
     }
 
     fun showDetail(history: HasilCarwash?){
         if (history == null) return
+        binding.namaSingkatTextView.text = history.nama.substring(0, 1)
         binding.namaKonsumenTextView.text = getString(R.string.nama_submit, history.nama)
         binding.noPolTextView.text = getString(R.string.noPol_submit, history.noPol)
         binding.mobilTextView.text = getString(R.string.mobil_submit, history.mobil)

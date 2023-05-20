@@ -13,15 +13,7 @@ import org.d3if3090.carwash.db.hasilCarwash
 import org.d3if3090.carwash.model.HasilCarwash
 
 class DetailViewModel (private val db: HistoryDao) : ViewModel() {
-    private val hasilCarwash = MutableLiveData<HasilCarwash?>()
-    fun getDataById(id: Int): LiveData<HistoryEntity> {
+    fun getDataById(id: Long): LiveData<HistoryEntity> {
         return db.getHistoryById(id)
     }
-
-    fun setCarwash(id: Int){
-        val dataHistory = getDataById(id)
-        hasilCarwash.value = dataHistory.value?.hasilCarwash()
-    }
-
-    fun getHasilCarwas(): LiveData<HasilCarwash?> = hasilCarwash
 }

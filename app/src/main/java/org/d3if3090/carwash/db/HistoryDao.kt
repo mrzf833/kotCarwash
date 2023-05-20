@@ -15,6 +15,9 @@ interface HistoryDao {
     @Query("SELECT * FROM history ORDER BY id DESC")
     fun getLastHistory(): LiveData<List<HistoryEntity>>
 
+    @Query("SELECT * FROM history ORDER BY id DESC LIMIT 1")
+    fun getLastHistoryData(): LiveData<HistoryEntity>
+
     @Query("DELETE FROM history")
     fun deleteAllHistory()
 
@@ -22,5 +25,5 @@ interface HistoryDao {
     fun deleteHistory(id: Int)
 
     @Query("SELECT * FROM history WHERE id = :id")
-    fun getHistoryById(id: Int): LiveData<HistoryEntity>
+    fun getHistoryById(id: Long): LiveData<HistoryEntity>
 }

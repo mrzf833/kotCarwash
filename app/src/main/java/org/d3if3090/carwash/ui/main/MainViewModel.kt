@@ -1,5 +1,6 @@
 package org.d3if3090.carwash.ui.main
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,8 +14,10 @@ import org.d3if3090.carwash.db.hasilCarwash
 import org.d3if3090.carwash.model.DataTipeJasa
 import org.d3if3090.carwash.model.HasilCarwash
 import org.d3if3090.carwash.model.TipeJasa
+import kotlin.math.log
 
 class MainViewModel(private val db: HistoryDao) : ViewModel() {
+    val dataLastHistory = db.getLastHistoryData()
     private val hasilCarwash = MutableLiveData<HasilCarwash?>()
     private val history = MutableLiveData<HistoryEntity?>()
     private val navigasiToDetail = MutableLiveData<Long?>()
@@ -31,8 +34,8 @@ class MainViewModel(private val db: HistoryDao) : ViewModel() {
             noPol = noPol,
             bayar = bayar
         )
-        history.value = dataHistory
         hasilCarwash.value = dataHistory.hasilCarwash()
+        history.value = dataHistory
 //        hasilCarwash.value = HasilCarwash(nama, mobil,noPol, tipeJasa.nama, tipeJasa.totalBiaya, kembalian, bayar)
         viewModelScope.launch {
             withContext(Dispatchers.IO){
@@ -59,8 +62,8 @@ class MainViewModel(private val db: HistoryDao) : ViewModel() {
 
     fun getHasilCarwas(): LiveData<HasilCarwash?> = hasilCarwash
 
-    fun mulaiNavigasiToDetail(){
-        navigasiToDetail.value = history.value?.id
+    fun mulaiNavigasiToDetail(idHistory: Long){
+        navigasiToDetail.value = idHistory
     }
 
     fun selesaiNavigasiToDetail(){
