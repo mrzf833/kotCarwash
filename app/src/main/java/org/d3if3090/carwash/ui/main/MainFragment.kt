@@ -15,23 +15,43 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import org.d3if3090.carwash.R
 import org.d3if3090.carwash.databinding.FragmentMainBinding
+import org.d3if3090.carwash.db.CarwashDb
 import org.d3if3090.carwash.model.DataTipeJasa
 import org.d3if3090.carwash.model.HasilCarwash
 
 class MainFragment: Fragment() {
     private lateinit var binding: FragmentMainBinding
     private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this)[MainViewModel::class.java]
+        val db = CarwashDb.getInstance(requireContext())
+        val factory = MainViewModelFactory(db.historyDao)
+        ViewModelProvider(this, factory)[MainViewModel::class.java]
     }
 
     private var biaya: Int = 0
 
     private  var jasa: String = ""
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.getHasilCarwas().observe(this){
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        viewModel.getHasilCarwas().observe(this){
+//            showResult(it)
+//        }
+//    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel.getHasilCarwas().observe(requireActivity()){
             showResult(it)
+        }
+
+        binding.btnDetail.setOnClickListener {
+            viewModel.mulaiNavigasiToDetail()
+        }
+
+        viewModel.getNavigasiToDetail().observe(viewLifecycleOwner){
+            if(it == null) return@observe
+            findNavController().navigate(MainFragmentDirections
+                .actionMainFragmentToHistoryFragment(it))
+            viewModel.selesaiNavigasiToDetail()
         }
     }
 
@@ -137,7 +157,7 @@ class MainFragment: Fragment() {
             Toast.makeText(this.context, R.string.bayar_kurang, Toast.LENGTH_LONG).show()
             return
         }
-        viewModel.getCarwash(namaKonsumen, namaMobil, jasa, bayarInp)
+        viewModel.setCarwash(namaKonsumen, namaMobil,noPol, jasa, bayarInp)
         Toast.makeText(this.context, R.string.submit_berhasil, Toast.LENGTH_LONG).show()
     }
 
@@ -154,6 +174,7 @@ class MainFragment: Fragment() {
 
 
     fun tampilkanSubmit(){
+        binding.btnDetail.setVisibility(View.VISIBLE)
         binding.txtNamaSubmit.setVisibility(View.VISIBLE)
         binding.txtJasaSubmit.setVisibility(View.VISIBLE)
         binding.txtMobilSubmit.setVisibility(View.VISIBLE)
@@ -162,6 +183,7 @@ class MainFragment: Fragment() {
     }
 
     fun reset(){
+        binding.btnDetail.setVisibility(View.GONE)
         binding.txtNamaSubmit.setVisibility(View.GONE)
         binding.txtJasaSubmit.setVisibility(View.GONE)
         binding.txtMobilSubmit.setVisibility(View.GONE)
@@ -182,10 +204,17 @@ class MainFragment: Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.menu_about){
-            findNavController().navigate(
-                R.id.action_mainFragment_to_aboutFragment)
-            return true
+        when(item.itemId){
+            R.id.menu_about -> {
+                findNavController().navigate(
+                    R.id.action_mainFragment_to_aboutFragment)
+                return true
+            }
+            R.id.menu_histori -> {
+                findNavController().navigate(
+                    R.id.action_mainFragment_to_historyFragment)
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }

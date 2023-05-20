@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/namaSingkatTextView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/circle_background"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="35sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="I" />
+
+    <TextView
+        android:id="@+id/namaKonsumenTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/nama_submit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/namaSingkatTextView" />
+
+    <TextView
+        android:id="@+id/noPolTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/noPol_submit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/namaKonsumenTextView" />
+
+    <TextView
+        android:id="@+id/mobilTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/mobil_submit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/noPolTextView" />
+
+    <TextView
+        android:id="@+id/jasaTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/jasa_submit"
+        app:layout_constraintStart_toEndOf="@+id/namaKonsumenTextView"
+        app:layout_constraintTop_toBottomOf="@+id/namaSingkatTextView" />
+
+    <TextView
+        android:id="@+id/biayaTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/biaya_submit"
+        app:layout_constraintStart_toEndOf="@+id/noPolTextView"
+        app:layout_constraintTop_toBottomOf="@+id/jasaTextView" />
+
+    <TextView
+        android:id="@+id/bayarTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/bayar_submit"
+        app:layout_constraintStart_toEndOf="@+id/mobilTextView"
+        app:layout_constraintTop_toBottomOf="@+id/biayaTextView" />
+
+    <Button
+        android:id="@+id/btnBagikan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="@string/bagikan"
+        android:backgroundTint="@color/teal_700"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bayarTextView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

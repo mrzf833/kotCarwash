@@ -22,6 +22,8 @@
     <string name="biaya_submit">Biaya : %1$s</string>
     <string name="kembalian_submit">Kembalian : %1$s</string>
     <string name="txt_bayar">Bayar</string>
+    <string name="noPol_submit">No Polisi : %1$s</string>
+    <string name="bayar_submit">Bayar : %1$s</string>
 
     <string name="bayar_invalid">Bayar Invalid</string>
     <string name="nama_invalid">Nama Invalid</string>
@@ -34,4 +36,14 @@
     <string name="nopol_invalid">Nomor Polisi Invalid</string>
     <string name="btn_reset">Reset</string>
     <string name="about">Carwash adalah aplikasi pencatatan jasa pencucian kendaraan mobil.\nAplikasi Carwash ini pemilik serta karyawan mendapatkan kemudahan dalam mengolah data perusahaan dengan baik, benar, efektif dan efesien dalam melakukan pendataan dan tracking data.</string>
+    <string name="belum_ada_data">Belum ada data</string>
+    <string name="histori">Histori</string>
+    <string name="hapus_histori">Hapus Histori</string>
+    <string name="konfirmasi_hapus">Hapus semua histori?</string>
+    <string name="konfirmasi_hapus_satu">Hapus histori id %1$s ?</string>
+    <string name="hapus">Hapus</string>
+    <string name="batal">Batal</string>
+    <string name="bagikan">Bagikan</string>
+    <string name="detail">Detail</string>
+
 </resources>

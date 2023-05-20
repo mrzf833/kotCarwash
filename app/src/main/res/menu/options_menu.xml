@@ -6,4 +6,9 @@
         android:id="@+id/menu_about"
         android:title="@string/tentang_aplikasi"
         app:showAsAction="never"/>
+
+    <item android:title="@string/histori"
+        android:id="@+id/menu_histori"
+        android:icon="@drawable/ic_baseline_history_24"
+        app:showAsAction="ifRoom"/>
 </menu>

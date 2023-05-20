@@ -12,10 +12,30 @@
         <action
             android:id="@+id/action_mainFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="org.d3if3090.carwash.ui.about.AboutFragment"
         android:label="@string/tentang_aplikasi"
         tools:layout="@layout/fragment_about"/>
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="org.d3if3090.carwash.ui.history.HistoryFragment"
+        android:label="@string/histori"
+        tools:layout="@layout/fragment_history"/>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="org.d3if3090.carwash.ui.detail.DetailFragment"
+        android:label="DetailFragment"
+        tools:layout="@layout/fragment_detail_history">
+        <argument
+            android:name="idHistory"
+            app:argType="integer" />
+    </fragment>
 </navigation>
