@@ -1,6 +1,5 @@
 package org.d3if3090.carwash.ui.main
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,7 +13,6 @@ import org.d3if3090.carwash.db.hasilCarwash
 import org.d3if3090.carwash.model.DataTipeJasa
 import org.d3if3090.carwash.model.HasilCarwash
 import org.d3if3090.carwash.model.TipeJasa
-import kotlin.math.log
 
 class MainViewModel(private val db: HistoryDao) : ViewModel() {
     val dataLastHistory = db.getLastHistoryData()

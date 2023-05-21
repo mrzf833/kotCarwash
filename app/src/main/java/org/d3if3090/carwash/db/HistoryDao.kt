@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import org.d3if3090.carwash.model.HasilCarwash
 
 
 @Dao
