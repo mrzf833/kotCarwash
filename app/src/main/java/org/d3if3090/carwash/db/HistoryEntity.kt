@@ -3,6 +3,8 @@ package org.d3if3090.carwash.db
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import org.d3if3090.carwash.model.HasilCarwash
+import java.text.SimpleDateFormat
+import java.util.*
 
 @Entity(tableName = "history")
 data class HistoryEntity(
@@ -20,5 +22,7 @@ data class HistoryEntity(
 )
 
 fun HistoryEntity.hasilCarwash(): HasilCarwash {
-    return HasilCarwash(namaKonsumen, namaMobil,noPol, jasa, biaya, kembalian, bayar)
+    val dateFormatter = SimpleDateFormat("dd MMMM yyyy")
+    val tanggal = dateFormatter.format(Date(tanggal))
+    return HasilCarwash(namaKonsumen, namaMobil,noPol, jasa, biaya, kembalian, bayar, tanggal)
 }

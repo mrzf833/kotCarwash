@@ -7,5 +7,6 @@ data class HasilCarwash(
     val jasa: String,
     val biaya: String,
     val kembalian: Int,
-    val bayar: Int
+    val bayar: Int,
+    val tanggal: String?
 )

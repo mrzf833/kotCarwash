@@ -1,5 +1,6 @@
 package org.d3if3090.carwash.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.*
@@ -13,6 +14,8 @@ import androidx.navigation.fragment.findNavController
 import org.d3if3090.carwash.R
 import org.d3if3090.carwash.databinding.FragmentMainBinding
 import org.d3if3090.carwash.db.CarwashDb
+import org.d3if3090.carwash.db.HistoryEntity
+import org.d3if3090.carwash.db.hasilCarwash
 import org.d3if3090.carwash.model.HasilCarwash
 
 class MainFragment: Fragment() {
@@ -75,9 +78,38 @@ class MainFragment: Fragment() {
             reset()
         }
 
+        binding.btnBagikanMain.setOnClickListener { shareData() }
+
         spinner.selected {  }
 
         return binding.root
+    }
+
+    private fun shareData(){
+        var historyEntity: HistoryEntity? = null
+        viewModel.dataLastHistory.observe(viewLifecycleOwner){
+            historyEntity = it
+        }
+        if (historyEntity == null){
+            Toast.makeText(this.context, "data tidak ada", Toast.LENGTH_LONG).show()
+            return
+        }
+        var hasilCarwash = historyEntity?.hasilCarwash()
+        val message = "tanggal: ${hasilCarwash?.tanggal}\n" +
+                "nama : ${hasilCarwash?.nama}\n" +
+                "mobil: ${hasilCarwash?.mobil}\n" +
+                "no polisi: ${hasilCarwash?.noPol}\n" +
+                "jasa: ${hasilCarwash?.jasa}\n" +
+                "biaya: ${hasilCarwash?.biaya}\n" +
+                "bayar: ${hasilCarwash?.bayar}\n" +
+                "kembalian: ${hasilCarwash?.kembalian}"
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.setType("text/plain").putExtra(Intent.EXTRA_TEXT, message)
+        if (shareIntent.resolveActivity(
+                requireActivity().packageManager) != null) {
+            startActivity(shareIntent)
+        }
+
     }
 
 
