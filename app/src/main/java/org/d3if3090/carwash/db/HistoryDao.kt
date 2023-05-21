@@ -22,7 +22,7 @@ interface HistoryDao {
     fun deleteAllHistory()
 
     @Query("DELETE FROM history WHERE id = :id")
-    fun deleteHistory(id: Int)
+    fun deleteHistory(id: Long)
 
     @Query("SELECT * FROM history WHERE id = :id")
     fun getHistoryById(id: Long): LiveData<HistoryEntity>

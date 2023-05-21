@@ -16,7 +16,7 @@ class HistoryViewModel(private val db: HistoryDao) : ViewModel() {
         }
     }
 
-    fun hapusData(id: Int) = viewModelScope.launch {
+    fun hapusData(id: Long) = viewModelScope.launch {
         withContext(Dispatchers.IO) {
             db.deleteHistory(id)
         }

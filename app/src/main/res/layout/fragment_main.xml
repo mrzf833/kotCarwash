@@ -204,10 +204,11 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:text="@string/txt_tipe_jasa"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_mobil_submit" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_mobil_submit"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/txt_biaya_submit"
@@ -217,10 +218,11 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:text="@string/txt_total_biaya"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_jasa_submit" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_jasa_submit"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/txt_mobil_submit"
@@ -230,10 +232,11 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:text="@string/mobil_submit"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_nama_submit" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_nama_submit"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/txt_nama_submit"
@@ -241,10 +244,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="@string/txt_nama_konsumen"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view2" />
+            app:layout_constraintTop_toBottomOf="@+id/view2"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/txt_kembalian_submit"
@@ -253,13 +257,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="32dp"
             android:text="@string/kembalian_submit"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_biaya_submit" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_biaya_submit"
+            tools:visibility="visible" />
 
         <View
             android:id="@+id/view2"
@@ -276,12 +279,28 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="32dp"
             android:text="@string/detail"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@id/btnBagikanMain"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_kembalian_submit"
-            android:visibility="invisible"/>
+            tools:visibility="visible" />
+
+        <Button
+            android:id="@+id/btnBagikanMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bagikan"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/btnDetail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btnDetail"
+            app:layout_constraintTop_toTopOf="@+id/btnDetail"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

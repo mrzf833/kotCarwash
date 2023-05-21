@@ -1,7 +1,10 @@
 package org.d3if3090.carwash.ui.history
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -30,7 +33,7 @@ class HistoryFragment: Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        myAdapter = HistoryAdapter()
+        myAdapter = HistoryAdapter(this)
         with(binding.recyclerView){
             addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
             adapter = myAdapter
@@ -61,18 +64,6 @@ class HistoryFragment: Fragment() {
             .setMessage(R.string.konfirmasi_hapus)
             .setPositiveButton(getString(R.string.hapus)) {_, _ ->
                 viewModel.hapusSemuaData()
-            }
-            .setNegativeButton(getString(R.string.batal)) { dialog, _ ->
-                dialog.cancel()
-            }
-            .show()
-    }
-
-    private fun hapusData(id: Int){
-        MaterialAlertDialogBuilder(requireContext())
-            .setMessage(getString(R.string.konfirmasi_hapus_satu, id.toString()))
-            .setPositiveButton(getString(R.string.hapus)) {_, _ ->
-                viewModel.hapusData(id)
             }
             .setNegativeButton(getString(R.string.batal)) { dialog, _ ->
                 dialog.cancel()

@@ -29,13 +29,6 @@ class MainFragment: Fragment() {
 
     private  var jasa: String = ""
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        viewModel.getHasilCarwas().observe(this){
-//            showResult(it)
-//        }
-//    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.getHasilCarwas().observe(requireActivity()){
             showResult(it)
@@ -164,7 +157,11 @@ class MainFragment: Fragment() {
     }
 
     private fun showResult(result: HasilCarwash?){
-        if (result == null) return
+        if (result == null) {
+            hideResult()
+            Toast.makeText(this.context, "ini kosong", Toast.LENGTH_LONG).show()
+            return
+        }
         binding.txtNamaSubmit.text = getString(R.string.nama_submit, result.nama)
         binding.txtJasaSubmit.text = getString(R.string.jasa_submit, result.jasa)
         binding.txtMobilSubmit.text = getString(R.string.mobil_submit, result.mobil)
@@ -177,6 +174,7 @@ class MainFragment: Fragment() {
 
     fun tampilkanSubmit(){
         binding.btnDetail.setVisibility(View.VISIBLE)
+        binding.btnBagikanMain.setVisibility(View.VISIBLE)
         binding.txtNamaSubmit.setVisibility(View.VISIBLE)
         binding.txtJasaSubmit.setVisibility(View.VISIBLE)
         binding.txtMobilSubmit.setVisibility(View.VISIBLE)
@@ -184,13 +182,17 @@ class MainFragment: Fragment() {
         binding.txtKembalianSubmit.setVisibility(View.VISIBLE)
     }
 
-    fun reset(){
+    fun hideResult(){
         binding.btnDetail.setVisibility(View.GONE)
+        binding.btnBagikanMain.setVisibility(View.GONE)
         binding.txtNamaSubmit.setVisibility(View.GONE)
         binding.txtJasaSubmit.setVisibility(View.GONE)
         binding.txtMobilSubmit.setVisibility(View.GONE)
         binding.txtBiayaSubmit.setVisibility(View.GONE)
         binding.txtKembalianSubmit.setVisibility(View.GONE)
+    }
+    fun reset(){
+        hideResult()
 
         binding.namaKonsumenInp.setText("")
         binding.noPolInp.setText("")
