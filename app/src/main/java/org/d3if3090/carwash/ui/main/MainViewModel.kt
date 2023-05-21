@@ -36,7 +36,6 @@ class MainViewModel(private val db: HistoryDao) : ViewModel() {
         )
         hasilCarwash.value = dataHistory.hasilCarwash()
         history.value = dataHistory
-//        hasilCarwash.value = HasilCarwash(nama, mobil,noPol, tipeJasa.nama, tipeJasa.totalBiaya, kembalian, bayar)
         viewModelScope.launch {
             withContext(Dispatchers.IO){
                 db.insert(dataHistory)

@@ -36,7 +36,7 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="org.d3if3090.carwash.ui.detail.DetailFragment"
-        android:label="DetailFragment"
+        android:label="@string/detail"
         tools:layout="@layout/fragment_detail_history">
         <argument
             android:name="idHistory"

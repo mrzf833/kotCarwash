@@ -24,6 +24,7 @@ class DetailFragment: Fragment() {
         ViewModelProvider(this, factory)[DetailViewModel::class.java]
     }
 
+    var historyEntity: HistoryEntity? = null
     private lateinit var binding: FragmentDetailHistoryBinding
 
     override fun onCreateView(
@@ -39,10 +40,9 @@ class DetailFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.getDataById(args.idHistory).observe(viewLifecycleOwner){
             showDetail(it.hasilCarwash())
+            historyEntity = it
         }
-        binding.btnBagikan.setOnClickListener {
-
-        }
+        binding.btnBagikan.setOnClickListener { shareData() }
     }
 
     fun showDetail(history: HasilCarwash?){
@@ -57,10 +57,6 @@ class DetailFragment: Fragment() {
     }
 
     private fun shareData(){
-        var historyEntity: HistoryEntity? = null
-        viewModel.dataLastHistory.observe(viewLifecycleOwner){
-            historyEntity = it
-        }
         if (historyEntity == null){
             Toast.makeText(this.context, "data tidak ada", Toast.LENGTH_LONG).show()
             return

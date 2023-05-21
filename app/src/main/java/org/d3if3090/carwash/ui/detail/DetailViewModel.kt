@@ -13,8 +13,8 @@ import org.d3if3090.carwash.db.hasilCarwash
 import org.d3if3090.carwash.model.HasilCarwash
 
 class DetailViewModel (private val db: HistoryDao) : ViewModel() {
-    val dataLastHistory = db.getLastHistoryData()
     fun getDataById(id: Long): LiveData<HistoryEntity> {
-        return db.getHistoryById(id)
+        val dataEntity = db.getHistoryById(id)
+        return dataEntity
     }
 }
