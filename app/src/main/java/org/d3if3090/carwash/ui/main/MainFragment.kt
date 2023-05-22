@@ -180,9 +180,11 @@ class MainFragment: Fragment() {
             Toast.makeText(this.context, R.string.bayar_kurang, Toast.LENGTH_LONG).show()
             return
         }
+        // ini adalah untuk ngeset data carwash di main view model
         viewModel.setCarwash(namaKonsumen, namaMobil,noPol, jasa, bayarInp)
         Toast.makeText(this.context, R.string.submit_berhasil, Toast.LENGTH_LONG).show()
 
+        // ini itu untuk di perpindahan ke detail fragment
         viewModel.dataLastHistory.observe(viewLifecycleOwner){
             idHistory = it.id
         }
@@ -191,7 +193,6 @@ class MainFragment: Fragment() {
     private fun showResult(result: HasilCarwash?){
         if (result == null) {
             hideResult()
-            Toast.makeText(this.context, "ini kosong", Toast.LENGTH_LONG).show()
             return
         }
         binding.txtNamaSubmit.text = getString(R.string.nama_submit, result.nama)
@@ -226,6 +227,7 @@ class MainFragment: Fragment() {
     fun reset(){
         hideResult()
 
+        viewModel.setNullCarwash()
         binding.namaKonsumenInp.setText("")
         binding.noPolInp.setText("")
         binding.namaMobilInp.setText("")

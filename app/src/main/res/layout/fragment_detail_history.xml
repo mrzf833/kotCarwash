@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/mobil_submit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/noPolTextView" />
@@ -56,30 +56,27 @@
         android:id="@+id/jasaTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="62dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:text="@string/jasa_submit"
-        app:layout_constraintStart_toEndOf="@+id/namaKonsumenTextView"
-        app:layout_constraintTop_toBottomOf="@+id/namaSingkatTextView" />
+        app:layout_constraintStart_toStartOf="@+id/mobilTextView"
+        app:layout_constraintTop_toBottomOf="@+id/mobilTextView" />
 
     <TextView
         android:id="@+id/biayaTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="62dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/biaya_submit"
-        app:layout_constraintStart_toEndOf="@+id/noPolTextView"
+        app:layout_constraintStart_toStartOf="@+id/jasaTextView"
         app:layout_constraintTop_toBottomOf="@+id/jasaTextView" />
 
     <TextView
         android:id="@+id/bayarTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="62dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/bayar_submit"
-        app:layout_constraintStart_toEndOf="@+id/mobilTextView"
+        app:layout_constraintStart_toStartOf="@+id/biayaTextView"
         app:layout_constraintTop_toBottomOf="@+id/biayaTextView" />
 
     <Button

@@ -19,6 +19,10 @@ class MainViewModel(private val db: HistoryDao) : ViewModel() {
     private val hasilCarwash = MutableLiveData<HasilCarwash?>()
     private val history = MutableLiveData<HistoryEntity?>()
     private val navigasiToDetail = MutableLiveData<Long?>()
+
+    fun setNullCarwash(){
+        hasilCarwash.value = null
+    }
     fun setCarwash(nama: String, mobil: String,noPol: String, jasa: String, bayar: Int){
         val tipeJasa = getTipeJasa(jasa)
         val kembalian = bayar - tipeJasa.biaya

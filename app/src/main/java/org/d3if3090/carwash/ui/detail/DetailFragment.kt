@@ -61,6 +61,7 @@ class DetailFragment: Fragment() {
             Toast.makeText(this.context, "data tidak ada", Toast.LENGTH_LONG).show()
             return
         }
+        true ?: false
         var hasilCarwash = historyEntity?.hasilCarwash()
         val message = "tanggal: ${hasilCarwash?.tanggal}\n" +
                 "nama : ${hasilCarwash?.nama}\n" +

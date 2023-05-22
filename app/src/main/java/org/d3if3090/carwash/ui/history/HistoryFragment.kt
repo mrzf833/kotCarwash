@@ -5,7 +5,6 @@ import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
@@ -54,11 +53,7 @@ class HistoryFragment: Fragment() {
             myAdapter.submitList(it)
         }
 
-        layoutDataStore.preferenceFlow.asLiveData().observe(viewLifecycleOwner) {
-            isLinearLayout = it
-            setLayout()
-            activity?.invalidateOptionsMenu()
-        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
