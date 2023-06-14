@@ -1,5 +1,6 @@
 package org.d3if3090.carwash.ui.main
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,13 +14,14 @@ import org.d3if3090.carwash.db.hasilCarwash
 import org.d3if3090.carwash.model.DataTipeJasa
 import org.d3if3090.carwash.model.HasilCarwash
 import org.d3if3090.carwash.model.TipeJasa
+import org.d3if3090.carwash.network.TipeJasaApi
 
 class MainViewModel(private val db: HistoryDao) : ViewModel() {
     val dataLastHistory = db.getLastHistoryData()
     private val hasilCarwash = MutableLiveData<HasilCarwash?>()
     private val history = MutableLiveData<HistoryEntity?>()
     private val navigasiToDetail = MutableLiveData<Long?>()
-
+    private var dataTipeJasa = DataTipeJasa().getData()
     fun setNullCarwash(){
         hasilCarwash.value = null
     }
@@ -50,7 +52,7 @@ class MainViewModel(private val db: HistoryDao) : ViewModel() {
             "", 0, ""
         )
 
-        val datas = DataTipeJasa().getData()
+        val datas = dataTipeJasa.value!!
 
         for (data in datas){
             if(data.nama == tipe_jasa){
@@ -72,4 +74,12 @@ class MainViewModel(private val db: HistoryDao) : ViewModel() {
     }
 
     fun getNavigasiToDetail(): LiveData<Long?> = navigasiToDetail
+
+    fun getDataTipeJasa() = dataTipeJasa
+
+    fun dataTipeJasaOnlyNama(): List<String>{
+        return dataTipeJasa.value!!.map {
+            it.nama
+        }
+    }
 }

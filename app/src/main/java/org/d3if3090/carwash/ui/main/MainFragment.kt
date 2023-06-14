@@ -3,6 +3,7 @@ package org.d3if3090.carwash.ui.main
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -16,7 +17,9 @@ import org.d3if3090.carwash.databinding.FragmentMainBinding
 import org.d3if3090.carwash.db.CarwashDb
 import org.d3if3090.carwash.db.HistoryEntity
 import org.d3if3090.carwash.db.hasilCarwash
+import org.d3if3090.carwash.model.DataTipeJasa
 import org.d3if3090.carwash.model.HasilCarwash
+import org.d3if3090.carwash.model.TipeJasa
 
 class MainFragment: Fragment() {
     private lateinit var binding: FragmentMainBinding
@@ -59,16 +62,14 @@ class MainFragment: Fragment() {
 
         val spinner: Spinner = binding.tipeJasaSpinner
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter.createFromResource(
-            this.requireContext(),
-            R.array.tipe_jasa_array,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
-            spinner.adapter = adapter
+        viewModel.getDataTipeJasa().observe(viewLifecycleOwner){
+            val dataTipeJasaList = viewModel.dataTipeJasaOnlyNama()
+            val adapterTipeJasa = ArrayAdapter(this.requireContext(), android.R.layout.simple_spinner_item, dataTipeJasaList)
+            adapterTipeJasa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = adapterTipeJasa
+            Log.d("tipe jasa", "ini: ${it}")
         }
+
 
         binding.btnSubmit.setOnClickListener{
             submit()
