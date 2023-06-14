@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import org.d3if3090.carwash.R
 import org.d3if3090.carwash.databinding.FragmentMainBinding
 import org.d3if3090.carwash.db.CarwashDb
@@ -20,6 +21,7 @@ import org.d3if3090.carwash.db.hasilCarwash
 import org.d3if3090.carwash.model.DataTipeJasa
 import org.d3if3090.carwash.model.HasilCarwash
 import org.d3if3090.carwash.model.TipeJasa
+import org.d3if3090.carwash.network.MainApi
 
 class MainFragment: Fragment() {
     private lateinit var binding: FragmentMainBinding
@@ -82,6 +84,11 @@ class MainFragment: Fragment() {
         binding.btnBagikanMain.setOnClickListener { shareData() }
 
         spinner.selected {  }
+
+        Glide.with(binding.imageView.context)
+            .load(MainApi.getCarLogoUrl())
+            .error(R.drawable.baseline_broken_image_24)
+            .into(binding.imageView)
 
         return binding.root
     }
