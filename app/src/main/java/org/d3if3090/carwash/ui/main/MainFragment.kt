@@ -1,6 +1,9 @@
 package org.d3if3090.carwash.ui.main
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -9,10 +12,13 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import org.d3if3090.carwash.MainActivity
 import org.d3if3090.carwash.R
 import org.d3if3090.carwash.databinding.FragmentMainBinding
 import org.d3if3090.carwash.db.CarwashDb
@@ -21,6 +27,7 @@ import org.d3if3090.carwash.db.hasilCarwash
 import org.d3if3090.carwash.model.DataTipeJasa
 import org.d3if3090.carwash.model.HasilCarwash
 import org.d3if3090.carwash.model.TipeJasa
+import org.d3if3090.carwash.network.ApiStatus
 import org.d3if3090.carwash.network.MainApi
 
 class MainFragment: Fragment() {
@@ -52,6 +59,10 @@ class MainFragment: Fragment() {
                 .actionMainFragmentToDetailFragment(it))
             viewModel.selesaiNavigasiToDetail()
         }
+
+        viewModel.getStatusTipeJasa().observe(viewLifecycleOwner) {
+            updateProgressTipeJasa(it)
+        }
     }
 
     override fun onCreateView(
@@ -75,6 +86,7 @@ class MainFragment: Fragment() {
 
         binding.btnSubmit.setOnClickListener{
             submit()
+            viewModel.scheduleUpdater(requireActivity().application)
         }
 
         binding.btnReset.setOnClickListener{
@@ -264,4 +276,43 @@ class MainFragment: Fragment() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    private fun updateProgressTipeJasa(status: ApiStatus) {
+        binding.mainView.visibility = View.GONE
+        binding.proggresView.visibility = View.VISIBLE
+        when (status) {
+            ApiStatus.LOADING -> {
+                binding.progressBar.visibility = View.VISIBLE
+            }
+            ApiStatus.SUCCESS -> {
+                binding.mainView.visibility = View.VISIBLE
+                binding.proggresView.visibility = View.GONE
+                binding.progressBar.visibility = View.GONE
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    requestNotificationPermission()
+                }
+            }
+            ApiStatus.FAILED -> {
+                binding.progressBar.visibility = View.GONE
+                binding.networkError.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun requestNotificationPermission() {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                MainActivity.PERMISSION_REQUEST_CODE
+            )
+        }
+    }
+
 }

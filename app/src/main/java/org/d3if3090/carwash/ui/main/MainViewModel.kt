@@ -1,10 +1,14 @@
 package org.d3if3090.carwash.ui.main
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.work.ExistingWorkPolicy
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -14,7 +18,10 @@ import org.d3if3090.carwash.db.hasilCarwash
 import org.d3if3090.carwash.model.DataTipeJasa
 import org.d3if3090.carwash.model.HasilCarwash
 import org.d3if3090.carwash.model.TipeJasa
+import org.d3if3090.carwash.network.ApiStatus
 import org.d3if3090.carwash.network.TipeJasaApi
+import org.d3if3090.carwash.network.UpdateWorker
+import java.util.concurrent.TimeUnit
 
 class MainViewModel(private val db: HistoryDao) : ViewModel() {
     val dataLastHistory = db.getLastHistoryData()
@@ -22,6 +29,8 @@ class MainViewModel(private val db: HistoryDao) : ViewModel() {
     private val history = MutableLiveData<HistoryEntity?>()
     private val navigasiToDetail = MutableLiveData<Long?>()
     private var dataTipeJasa = DataTipeJasa().getData()
+
+
     fun setNullCarwash(){
         hasilCarwash.value = null
     }
@@ -81,5 +90,19 @@ class MainViewModel(private val db: HistoryDao) : ViewModel() {
         return dataTipeJasa.value!!.map {
             it.nama
         }
+    }
+
+    fun getStatusTipeJasa(): LiveData<ApiStatus> = DataTipeJasa().getStatus()
+
+    fun scheduleUpdater(app: Application) {
+        val request = OneTimeWorkRequestBuilder<UpdateWorker>()
+            .setInitialDelay(1, TimeUnit.MINUTES)
+            .build()
+
+        WorkManager.getInstance(app).enqueueUniqueWork(
+            UpdateWorker.WORK_NAME,
+            ExistingWorkPolicy.REPLACE,
+            request
+        )
     }
 }
